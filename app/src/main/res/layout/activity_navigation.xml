@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <android.support.v4.widget.DrawerLayout
+        android:id="@+id/drawer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        >
+
+        <android.support.design.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            tools:context=".view.main.MainActivity">
+
+            <android.support.design.widget.AppBarLayout
+                android:id="@+id/appbar_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:theme="@style/AppTheme.AppBarOverlay">
+
+         <!--   <android.support.design.widget.CollapsingToolbarLayout
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:fitsSystemWindows="true"
+                app:contentScrim="?attr/colorPrimary"
+                app:expandedTitleMarginEnd="@dimen/activity_horizontal_margin"
+                app:expandedTitleMarginStart="@dimen/activity_horizontal_margin"
+                app:layout_scrollFlags="scroll|scroll">
+                   </android.support.design.widget.CollapsingToolbarLayout> -->
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="?attr/colorPrimary"
+                    app:layout_scrollFlags="scroll|enterAlways" >
+
+                    <ImageButton
+                        android:id="@+id/filter"
+                        android:title="@string/empty_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="?attr/actionBarSize"
+                        android:icon="@drawable/ic_tune_white_48dp"
+                        android:background="?selectableItemBackground"
+                        />
+
+                    </android.support.v7.widget.Toolbar>
+            </android.support.design.widget.AppBarLayout>
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fabButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|bottom"
+                android:layout_margin="@dimen/fab_margin"
+                android:src="@drawable/ic_tune_white_48dp"
+                app:borderWidth="0dp"
+                app:layout_behavior="lucastanziano.movieexplorer.gui.ScrollingFABBehavior"/>
+
+
+            <FrameLayout
+                android:id="@+id/content_frame"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+ />
+
+        </android.support.design.widget.CoordinatorLayout>
+        <RelativeLayout
+            android:id="@+id/filter_frame"
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+            >
+
+        </RelativeLayout>
+
+    </android.support.v4.widget.DrawerLayout>
+</layout>
