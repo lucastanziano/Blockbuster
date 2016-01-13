@@ -9,7 +9,7 @@ RxJava, RxAndroid, Retrofit, Dagger 2, Android Databinder, Facebook Fresco
 
 ###### TODO
 - Step 0 - app design/architecture:
-  - ~~Domain-driven-design: create model first and keep separated from UI and business logic ~~
+  - ~~Domain-driven-design: create model first and keep separated from UI and business logic~~
   - ~~Clean architecture (different layers for repository, presentation and domain)~~
   - ~~MVVM for presentation layer (Android databinder)~~
   - ~~Reactive interface (RxJava)~~
