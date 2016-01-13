@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewAnimationUtils;
 
 
+import lucastanziano.blockbuster.interactor.MoviesInteractor;
 import lucastanziano.gallery.view.Gallery;
 import lucastanziano.blockbuster.R;
 import lucastanziano.blockbuster.databinding.ActivityNavigationBinding;
@@ -42,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        presenter = new MainPresenter(this);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_navigation);
         Log.d("MAINACITIVTY", "ACTIVITY CREATED!|!!!!!");
         injectDepedencies();
@@ -51,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         initFabButton();
 
         moviesInteractor = new MoviesInteractor(this, gallery.getObservableItems());
-        presenter = new MainPresenter(this);
+
 
         handleIntent(getIntent());
     }
@@ -111,18 +113,6 @@ public class MainActivity extends AppCompatActivity {
         searchView.setSearchableInfo(
                 searchManager.getSearchableInfo(getComponentName()));
 
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-
-                return true;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                return false;
-            }
-        });
 
         return true;
     }

@@ -25,7 +25,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="lucastanziano.blockbuster.MovieDetailsActivity"></activity>
+        <activity android:name=".view.movie.MovieDetailsActivity"></activity>
     </application>
 
 </manifest>

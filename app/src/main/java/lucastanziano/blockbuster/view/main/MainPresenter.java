@@ -3,8 +3,7 @@ package lucastanziano.blockbuster.view.main;
 import android.content.Intent;
 
 import lucastanziano.gallery.model.GalleryItem;
-import lucastanziano.blockbuster.Consts;
-import lucastanziano.blockbuster.MovieDetailsActivity;
+import lucastanziano.blockbuster.view.movie.MovieDetailsActivity;
 import rx.Subscriber;
 
 
@@ -31,7 +30,7 @@ public class MainPresenter {
             public void onNext(GalleryItem item) {
                 Intent detailsActivity = new Intent(mainActivity, MovieDetailsActivity.class);
                 if (detailsActivity != null) {
-                    detailsActivity.putExtra(Consts.MOVIEID, item.id);
+                    detailsActivity.putExtra(MovieDetailsActivity.MOVIE_ID_TAG, item.id);
                     mainActivity.startActivity(detailsActivity);
                 }
             }
