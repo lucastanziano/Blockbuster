@@ -29,7 +29,7 @@ RxJava, RxAndroid, Retrofit, Dagger 2, Android Databinder, Facebook Fresco
 - Step 4 - tests:
   - Write automatic tests based on requirements
   - Performance profiling to investigate potential issues (memory leaks, too much work on UI thread, etc.)
-  - UI test
+  - UI test on different devices
 - Step 5 - new features:
   - Add movie filter
   - New animations
