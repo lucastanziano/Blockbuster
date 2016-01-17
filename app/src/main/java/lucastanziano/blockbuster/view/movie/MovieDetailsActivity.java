@@ -41,6 +41,8 @@ public class MovieDetailsActivity extends AppCompatActivity {
         String movieID = getIntent().getStringExtra(MOVIE_ID_TAG);
         if(movieID!=null){
             initDetails(movieID);
+        } else {
+            Log.e("MOVIEDETAILSACTIVITY", "MovieID was null");
         }
 
         mBinding.toolbar.setTitle("");
@@ -70,38 +72,47 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
             @Override
             public void onNext(MovieDetail movieDetail) {
-                Log.d("MOVIE_DETAILS_ACTIVITY", movieDetail.getId()+ " " + movieID);
-                mBinding.title.setText(movieDetail.getTitle());
-                mBinding.description.setText(movieDetail.getOverview());
-                String address = "http://image.tmdb.org/t/p/w" + "300" + movieDetail.getPoster_path();
-                Uri uri = Uri.parse(address);
-                ImageRequest request = ImageRequestBuilder.newBuilderWithSource(uri)
-                        .setProgressiveRenderingEnabled(true)
-                        .setPostprocessor(new BasePostprocessor() {
-                            @Override
-                            public void process(Bitmap bitmap) {
-                                super.process(bitmap);
-                                Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
-                                    @Override
-                                    public void onGenerated(Palette palette) {
-                                        int primaryDark = ContextCompat.getColor(getApplicationContext(), R.color.colorPrimaryDark);
-                                        int primary = ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary);
-                                        mBinding.collapsingToolbar.setContentScrimColor(palette.getMutedColor(primary));
-                                        mBinding.collapsingToolbar.setStatusBarScrimColor(palette.getDarkVibrantColor(primaryDark));
-                                    }
-                                });
-                            }
-                        })
-                        .build();
-                DraweeController controller = Fresco.newDraweeControllerBuilder()
-                        .setImageRequest(request)
-                        .setOldController(mBinding.picture.getController())
-                        .build();
-                Log.d("FRESCOLOADING", address);
-                mBinding.picture.setController(controller);
-
+                Log.d("MOVIE_DETAILS_ACTIVITY", movieDetail.getId()+ " " + movieID + " " + movieDetail.toString());
+                mBinding.movieTitle.setText(movieDetail.getTitle());
+                mBinding.genreValue.setText(movieDetail.getGenresString());
+                mBinding.releaseDateValue.setText(movieDetail.getRelease_date());
+                mBinding.ratingValue.setText(movieDetail.getVote_average().toString());
+                mBinding.runtimeValue.setText(movieDetail.getRuntime().toString()+ " min");
+                mBinding.plot.setText(movieDetail.getOverview());
+//
+                mBinding.picture.setController(getImageController(movieDetail.getPoster_path(), mBinding.picture.getController()));
                 mBinding.picture.setLayoutParams(new CollapsingToolbarLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int) getResources().getDimension(lucastanziano.gallery.R.dimen.poster_grid2_height)));
+
+                mBinding.poster.setController(getImageController(movieDetail.getPoster_path(), mBinding.poster.getController()));
             }
         });
+    }
+
+    private DraweeController getImageController(String imagePath, DraweeController oldController){
+        String address = "http://image.tmdb.org/t/p/w" + "300" + imagePath;
+        Log.d("FRESCOLOADING", address);
+        Uri uri = Uri.parse(address);
+        ImageRequest request = ImageRequestBuilder.newBuilderWithSource(uri)
+                .setProgressiveRenderingEnabled(true)
+                .setPostprocessor(new BasePostprocessor() {
+                    @Override
+                    public void process(Bitmap bitmap) {
+                        super.process(bitmap);
+                        Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
+                            @Override
+                            public void onGenerated(Palette palette) {
+                                int primaryDark = ContextCompat.getColor(getApplicationContext(), R.color.colorPrimaryDark);
+                                int primary = ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary);
+                                mBinding.collapsingToolbar.setContentScrimColor(palette.getMutedColor(primary));
+                                mBinding.collapsingToolbar.setStatusBarScrimColor(palette.getDarkVibrantColor(primaryDark));
+                            }
+                        });
+                    }
+                })
+                .build();
+        return Fresco.newDraweeControllerBuilder()
+                .setImageRequest(request)
+                .setOldController(oldController)
+                .build();
     }
 }

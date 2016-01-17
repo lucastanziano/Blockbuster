@@ -59,7 +59,7 @@
                 android:layout_margin="@dimen/fab_margin"
                 android:src="@drawable/ic_tune_white_48dp"
                 app:borderWidth="0dp"
-                app:layout_behavior="lucastanziano.movieexplorer.gui.ScrollingFABBehavior"/>
+                app:layout_behavior="lucastanziano.blockbuster.widget.ScrollingFABBehavior"/>
 
 
             <FrameLayout

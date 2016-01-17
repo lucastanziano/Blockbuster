@@ -4,6 +4,7 @@ import android.content.Intent;
 
 import lucastanziano.gallery.model.GalleryItem;
 import lucastanziano.blockbuster.view.movie.MovieDetailsActivity;
+import lucastanziano.gallery.view.Gallery;
 import rx.Subscriber;
 
 
@@ -14,10 +15,11 @@ public class MainPresenter {
 
     public MainPresenter(MainActivity mainActivity){
         this.mainActivity = mainActivity;
-        initGallery();
+
     }
 
-    private void initGallery(){
+    public void initGallery(Gallery gallery){
+        mainActivity.gallery = gallery;
         mainActivity.gallery.registerSubscriberOnGalleryItemSelected(new Subscriber<GalleryItem>() {
             @Override
             public void onCompleted() { }

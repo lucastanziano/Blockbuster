@@ -1,5 +1,7 @@
 package lucastanziano.blockbuster.model;
 
+import com.google.gson.internal.LinkedTreeMap;
+
 import java.util.List;
 
 @SuppressWarnings("UnusedDeclaration")
@@ -18,7 +20,7 @@ public class MovieDetail {
     private String tagline;
     private String title;
     private List production_countries;
-    private List genres;
+    private List<LinkedTreeMap> genres;
     private List spoken_languages;
     private List<Production_companies> production_companies;
     private List<ImagesWrapper.MovieImage> movieImagesList;
@@ -57,9 +59,19 @@ public class MovieDetail {
         return this.budget;
     }
 
-    public List getGenres() {
-
+    public List<LinkedTreeMap> getGenres() {
         return this.genres;
+    }
+
+    public String getGenresString(){
+        StringBuilder genresSb = new StringBuilder();
+        for(LinkedTreeMap genre : getGenres()){
+//            for(Object value : genre.values())
+            if(!genresSb.toString().isEmpty()){ genresSb.append(" | ");}
+//            genresSb.append(genre);
+            genresSb.append(genre.get("name").toString());
+        }
+        return genresSb.toString();
     }
 
     public String getHomepage() {
@@ -170,5 +182,16 @@ public class MovieDetail {
     public List<ImagesWrapper.MovieImage> getMovieImagesList() {
 
         return movieImagesList;
+    }
+
+    public String toString(){
+        String separator = " - ";
+        StringBuilder sb = new StringBuilder();
+        sb.append(getTitle() + separator);
+        sb.append(getGenresString() + separator);
+        sb.append(getVote_average() + separator);
+        sb.append(getOverview() + separator);
+        sb.append(getPoster_path() );
+        return sb.toString();
     }
 }

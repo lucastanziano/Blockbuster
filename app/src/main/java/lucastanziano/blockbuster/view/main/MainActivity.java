@@ -43,8 +43,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        presenter = new MainPresenter(this);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_navigation);
+        presenter = new MainPresenter(this);
         Log.d("MAINACITIVTY", "ACTIVITY CREATED!|!!!!!");
         injectDepedencies();
         setupToolbar();
@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initContentFrame() {
-        gallery = new Gallery(mBinding.contentFrame);
+        presenter.initGallery(new Gallery(mBinding.contentFrame));
 
     }
 
