@@ -20,8 +20,31 @@ public interface TMDBService {
     public static final String API_KEY_QUERY = "?api_key="+API_KEY;
 
 
+    @GET("discover/movie"+ API_KEY_QUERY)
+    Observable<MoviesWrapper> discoverMovie(
+         @Query("certification") String certification,
+         @Query("page") String page,
+         @Query("primary_release_year") String primary_release_year,
+         @Query("primary_release_date.gte") String primary_release_date_gte,
+         @Query("primary_release_date.lte") String primary_release_date_lte,
+         @Query("sort_by") String sort_by,
+         @Query("vote_count.gte") String vote_count.gte,
+         @Query("vote_average.gte") String vote_average_gte,
+         @Query("vote_average.lte") String vote_average_lte,
+         @Query("with_genres") String with_genres
+         );
+    
     @GET("movie/popular"+ API_KEY_QUERY)
     Observable<MoviesWrapper> getPopularMovies();
+    
+    @GET("movie/latest"+ API_KEY_QUERY)
+    Observable<MoviesWrapper> getLatestMovies();
+    
+    @GET("movie/top_rated"+ API_KEY_QUERY)
+    Observable<MoviesWrapper> getTopRatedMovies();
+    
+    @GET("movie/upcoming"+ API_KEY_QUERY)
+    Observable<MoviesWrapper> getUpcomingMovies();
 
     @GET("movie/{id}"+ API_KEY_QUERY)
     Observable<MovieDetail> getMovieDetail(
@@ -29,7 +52,6 @@ public interface TMDBService {
 
     @GET("movie/popular"+ API_KEY_QUERY)
     Observable<MoviesWrapper> getPopularMoviesByPage(
-
             @Query("page") String page
     );
 
