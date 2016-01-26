@@ -1,1 +1,1 @@
-include ':app', ':gallery', ':moviedb', ':moviefilter', ':rangebar'
+include ':presentation', ':domain', ':data', ':twowayview'

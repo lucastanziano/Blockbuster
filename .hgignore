@@ -1,0 +1,7 @@
+syntax: glob
+.gradle/
+.gitignore
+.hgignore
+.*
+gallery/build/*
+*/build/*
