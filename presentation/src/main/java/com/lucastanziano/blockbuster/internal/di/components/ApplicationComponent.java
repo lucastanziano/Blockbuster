@@ -18,7 +18,7 @@ import dagger.Component;
 public interface ApplicationComponent {
   void inject(BaseActivity baseActivity);
 
+
   //Exposed to sub-graphs.
   Context context();
-  MovieRepository movieRepository();
 }

@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 
 
-import com.lucastanziano.blockbuster.view.movie.MovieDetailsActivity;
+import com.lucastanziano.blockbuster.view.activity.MovieDetailsActivity;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;

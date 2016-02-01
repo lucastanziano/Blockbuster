@@ -52,4 +52,10 @@
     <dimen name="episode_details_thumb_height">140dp</dimen>
     <dimen name="thumb_small_width">100dp</dimen>
     <dimen name="thumb_small_height">150dp</dimen>
+
+
+    <dimen name="poster_grid2_height">260dp</dimen>
+
+
+    <dimen name="sliding_menu_width">80dp</dimen>
 </resources>

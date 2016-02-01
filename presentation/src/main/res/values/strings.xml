@@ -20,6 +20,6 @@
 
 
     <string name="top_rated">Top Rated</string>
-    <string name="popular">Popular</string>
+    <string name="popular">Trending</string>
     <string name="coming_soon">Coming soon</string>
 </resources>

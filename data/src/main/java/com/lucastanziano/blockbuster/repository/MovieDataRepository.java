@@ -44,12 +44,12 @@ public class MovieDataRepository implements MovieRepository {
         return restService.getPopularMovies(Integer.toString(page)).concatMap(new MovieMapper());
     }
 
-    public Observable<MoviesWrapper> getTopRatedMovies(int page) {
-        return restService.getTopRatedMovies(Integer.toString(page));
+    public Observable<Movie> getTopRatedMovies(int page) {
+        return restService.getTopRatedMovies(Integer.toString(page)).concatMap(new MovieMapper());
     }
 
-    public Observable<MoviesWrapper> getComingSoonMovies(int page) {
-        return restService.getUpcomingMovies(Integer.toString(page));
+    public Observable<Movie> getComingSoonMovies(int page) {
+        return restService.getUpcomingMovies(Integer.toString(page)).concatMap(new MovieMapper());
     }
 
     public Observable<MovieDetail> getMovieDetails(String id) {

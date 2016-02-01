@@ -3,6 +3,7 @@ package com.lucastanziano.blockbuster;
 import android.app.Application;
 
 import com.lucastanziano.blockbuster.internal.di.components.ApplicationComponent;
+import com.lucastanziano.blockbuster.internal.di.components.DaggerApplicationComponent;
 import com.lucastanziano.blockbuster.internal.di.modules.ApplicationModule;
 
 /**
@@ -27,4 +28,6 @@ public class AndroidApplication extends Application {
   public ApplicationComponent getApplicationComponent() {
     return this.applicationComponent;
   }
+
+
 }

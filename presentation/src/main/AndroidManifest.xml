@@ -5,15 +5,15 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name="com.lucastanziano.blockbuster.AndroidApplication"
         android:allowBackup="true"
-        android:name=".AndroidApplication"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:supportsRtl="true"
         android:largeHeap="true"
+        android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
         <activity
-            android:name="lucastanziano.blockbuster.view.main.MainActivity"
+            android:name="com.lucastanziano.blockbuster.view.activity.MovieGalleryActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <meta-data
@@ -27,7 +27,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.movie.MovieDetailsActivity"></activity>
+        <activity android:name="com.lucastanziano.blockbuster.view.activity.MovieDetailsActivity" />
+
     </application>
 
 </manifest>

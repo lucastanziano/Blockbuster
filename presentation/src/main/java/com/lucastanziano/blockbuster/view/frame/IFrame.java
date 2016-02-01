@@ -9,4 +9,6 @@ import android.view.ViewGroup;
 public interface IFrame {
 
     public void attachTo(ViewGroup container);
+
+    View getView();
 }

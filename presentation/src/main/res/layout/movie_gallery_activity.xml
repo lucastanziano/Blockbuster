@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
-        >
+        tools:openDrawer="start">
 
         <android.support.design.widget.CoordinatorLayout
             android:layout_width="match_parent"
@@ -51,15 +51,15 @@
                     </android.support.v7.widget.Toolbar>
             </android.support.design.widget.AppBarLayout>
 
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/fabButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end|bottom"
-                android:layout_margin="@dimen/fab_margin"
-                android:src="@drawable/ic_tune_white_48dp"
-                app:borderWidth="0dp"
-                app:layout_behavior="lucastanziano.blockbuster.widget.ScrollingFABBehavior"/>
+            <!--<android.support.design.widget.FloatingActionButton-->
+                <!--android:id="@+id/fabButton"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="end|bottom"-->
+                <!--android:layout_margin="@dimen/fab_margin"-->
+                <!--android:src="@drawable/ic_tune_white_48dp"-->
+                <!--app:borderWidth="0dp"-->
+                <!--app:layout_behavior="lucastanziano.blockbuster.widget.ScrollingFABBehavior"/>-->
 
 
             <FrameLayout
@@ -71,6 +71,22 @@
 
         </android.support.design.widget.CoordinatorLayout>
 
+        <ScrollView
+            android:id="@+id/scrollView"
+            android:scrollbarThumbVertical="@android:color/transparent"
+            android:layout_width="@dimen/sliding_menu_width"
+            android:layout_height="match_parent"
+            android:layout_gravity="start|bottom">
+
+            <LinearLayout
+                android:id="@+id/left_drawer"
+                android:orientation="vertical"
+                android:layout_width="@dimen/sliding_menu_width"
+                android:layout_height="wrap_content"
+                android:divider="@android:color/transparent"
+                android:background="@android:color/transparent">
+            </LinearLayout>
+        </ScrollView>
 
     </android.support.v4.widget.DrawerLayout>
 </layout>

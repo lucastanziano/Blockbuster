@@ -33,8 +33,4 @@ public class ApplicationModule {
   }
 
 
-  @Provides @Singleton
-  MovieRepository provideMovieRepository(MovieRepository movieRepository) {
-    return movieRepository;
-  }
 }
