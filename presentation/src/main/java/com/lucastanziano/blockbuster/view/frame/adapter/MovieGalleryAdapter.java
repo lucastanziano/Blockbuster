@@ -40,13 +40,14 @@ public class MovieGalleryAdapter extends RecyclerView.Adapter<MovieGalleryAdapte
 
     private Context context;
 
+    private TwoWayView recyclerView;
 
 
-
-    public MovieGalleryAdapter(Context context) {
+    public MovieGalleryAdapter(Context context, TwoWayView recyclerView) {
         this.context = context;
         this.items = new ObservableArrayList<MovieItem>();
         this.items.addOnListChangedCallback(new OnItemsChangedCallback(this));
+        this.recyclerView = recyclerView;
         Fresco.initialize(context);
     }
 
@@ -79,8 +80,8 @@ public class MovieGalleryAdapter extends RecyclerView.Adapter<MovieGalleryAdapte
             ItemViewBinding binding = (ItemViewBinding) holder.mBinding;
 
             String address = "http://image.tmdb.org/t/p/w185"  + getItems().get(position).backgroundImgURL;
-            boolean isVertical = (binding.getOrientation() == TwoWayLayoutManager.Orientation.VERTICAL);
-            setupItemImage(binding.picture, Uri.parse(address));
+            boolean isVertical = (recyclerView.getOrientation() == TwoWayLayoutManager.Orientation.VERTICAL);
+            setupItemImage(binding.picture, Uri.parse(address), isVertical);
 
         }
     }
@@ -95,7 +96,32 @@ public class MovieGalleryAdapter extends RecyclerView.Adapter<MovieGalleryAdapte
                 .build();
         imageView.setController(controller);
 
-        imageView.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int) context.getResources().getDimension(R.dimen.poster_grid2_height)));
+       // imageView.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int) context.getResources().getDimension(R.dimen.poster_grid2_height)));
+        
+        final GridLayoutManager.LayoutParams lp =
+                    (GridLayoutManager.LayoutParams) imageView.getLayoutParams();
+
+            if (!isVertical) {
+                lp.height = ViewGroup.LayoutParams.MATCH_PARENT;
+                lp.width = 50; //TODO use R.dimen.value
+            } else {
+                lp.height = (int) context.getResources().getDimension(R.dimen.poster_grid2_height);
+                lp.width = ViewGroup.LayoutParams.MATCH_PARENT;
+            }
+            imageView.setLayoutParams(lp);
+    }
+    
+    
+    public void replaceLayoutManager(LayoutManager newLayoutManager){
+         for (int i = 0; i < getItems().size(); i++) {
+            notifyItemRemoved(i);
+        }
+        
+        recyclerView.setLayoutManager(newLayoutManager);
+        
+         for (int i = 0; i < items.size(); i++) {
+            notifyItemInserted(i);
+        }
     }
 
 

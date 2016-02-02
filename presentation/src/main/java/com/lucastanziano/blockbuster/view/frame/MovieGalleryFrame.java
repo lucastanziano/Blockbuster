@@ -48,16 +48,24 @@ public class MovieGalleryFrame implements IFrame, ScreenShotable {
     @Override
     public void attachTo(ViewGroup container) {
         context = container.getContext();
-        mAdapter = new MovieGalleryAdapter(context);
+        
         mBinding = DataBindingUtil.inflate(LayoutInflater.from(container.getContext()),
                 R.layout.fragment_gallery, container, true);
+        mAdapter = new MovieGalleryAdapter(context, mBinding.recyclerView);
         initRecyclerView();
         MovieInteractor.loadMovieItems(getContext(), movieProvider.getMoreMovies(), getObservableItems());
     }
 
     private void initRecyclerView() {
         mBinding.galleryRecyclerView.setHasFixedSize(true);
-        mBinding.galleryRecyclerView.setAdapter((RecyclerView.Adapter) mAdapter);
+        
+        mBinding.galleryRecyclerView.setItemAnimator(new SlideInUpAnimator(new OvershootInterpolator(1f)));
+        
+        AlphaInAnimationAdapter alphaAdapter = new AlphaInAnimationAdapter((RecyclerView.Adapter) mAdapter);
+        alphaAdapter.setInterpolator(new OvershootInterpolator());
+        
+        
+        mBinding.galleryRecyclerView.setAdapter(alphaAdapter);
         mBinding.galleryRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int scrollState) {
@@ -92,6 +100,9 @@ public class MovieGalleryFrame implements IFrame, ScreenShotable {
     }
 
 
+    public void changeLayoutManager(LayoutManager newLayoutManager){
+        mAdapter.replaceLayoutManager(newLayoutManager);
+    }
 
 
     public View getView() {
