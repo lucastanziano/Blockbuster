@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MovieExplorer</string>
+    <string name="app_name">Blockbuster</string>
     <string name="empty_value"></string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>

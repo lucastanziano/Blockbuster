@@ -4,7 +4,6 @@ import android.content.Context;
 
 import com.lucastanziano.blockbuster.AndroidApplication;
 import com.lucastanziano.blockbuster.navigation.Navigator;
-import com.lucastanziano.blockbuster.repository.MovieRepository;
 
 import javax.inject.Singleton;
 

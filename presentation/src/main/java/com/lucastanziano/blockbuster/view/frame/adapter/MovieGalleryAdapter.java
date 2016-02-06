@@ -7,6 +7,7 @@ import android.databinding.ObservableArrayList;
 import android.databinding.ObservableList;
 import android.databinding.ViewDataBinding;
 import android.net.Uri;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,6 +24,7 @@ import com.lucastanziano.blockbuster.model.MovieItem;
 
 
 import org.lucasr.twowayview.TwoWayLayoutManager;
+import org.lucasr.twowayview.widget.TwoWayView;
 
 import java.lang.ref.WeakReference;
 
@@ -98,21 +100,22 @@ public class MovieGalleryAdapter extends RecyclerView.Adapter<MovieGalleryAdapte
 
        // imageView.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int) context.getResources().getDimension(R.dimen.poster_grid2_height)));
         
-        final GridLayoutManager.LayoutParams lp =
-                    (GridLayoutManager.LayoutParams) imageView.getLayoutParams();
+        final RelativeLayout.LayoutParams lp =
+                    (RelativeLayout.LayoutParams) imageView.getLayoutParams();
 
+//
             if (!isVertical) {
                 lp.height = ViewGroup.LayoutParams.MATCH_PARENT;
-                lp.width = 50; //TODO use R.dimen.value
+                lp.width = (recyclerView.getMeasuredHeight()/3)*2/3;
             } else {
-                lp.height = (int) context.getResources().getDimension(R.dimen.poster_grid2_height);
+                lp.height = recyclerView.getMeasuredWidth()/2;
                 lp.width = ViewGroup.LayoutParams.MATCH_PARENT;
             }
             imageView.setLayoutParams(lp);
     }
     
     
-    public void replaceLayoutManager(LayoutManager newLayoutManager){
+    public void replaceLayoutManager(RecyclerView.LayoutManager newLayoutManager){
          for (int i = 0; i < getItems().size(); i++) {
             notifyItemRemoved(i);
         }

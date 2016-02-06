@@ -10,6 +10,7 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.Palette;
+import android.transition.TransitionInflater;
 import android.util.Log;
 import android.view.ViewGroup;
 
@@ -18,9 +19,10 @@ import com.facebook.drawee.interfaces.DraweeController;
 import com.facebook.imagepipeline.request.BasePostprocessor;
 import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
-import com.lucastanziano.blockbuster.entity.MovieDetail;
+import com.lucastanziano.blockbuster.data.entity.MovieDetail;
 import com.lucastanziano.blockbuster.internal.di.Repository;
-import com.lucastanziano.blockbuster.repository.MovieDataRepository;
+import com.lucastanziano.blockbuster.data.repository.MovieDataRepository;
+import com.lucastanziano.blockbuster.widget.ElasticDragDismissFrameLayout;
 
 import lucastanziano.blockbuster.R;
 
@@ -43,7 +45,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_movie_details);
         Fresco.initialize(this);
         String movieID = getIntent().getStringExtra(MOVIE_ID_TAG);
-        if(movieID!=null){
+        if (movieID != null) {
             initDetails(movieID);
         } else {
             Log.e("MOVIEDETAILSACTIVITY", "MovieID was null");
@@ -54,7 +56,20 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
         mBinding.collapsingToolbar.setExpandedTitleColor(ContextCompat.getColor(getApplicationContext(), android.R.color.transparent));
 
-
+        mBinding.draggableFrame.addListener(
+                new ElasticDragDismissFrameLayout.SystemChromeFader(getWindow()) {
+                    @Override
+                    public void onDragDismissed() {
+                        // if we drag dismiss downward then the default reversal of the enter
+                        // transition would slide content upward which looks weird. So reverse it.
+                        if (mBinding.draggableFrame.getTranslationY() > 0) {
+                            getWindow().setReturnTransition(
+                                    TransitionInflater.from(MovieDetailsActivity.this)
+                                            .inflateTransition(R.transition.exit_movie_details));
+                        }
+                        finishAfterTransition();
+                    }
+                });
     }
 
     public static Intent getCallingIntent(Context context) {
@@ -62,41 +77,41 @@ public class MovieDetailsActivity extends AppCompatActivity {
     }
 
     private void initDetails(final String movieID) {
-        Log.d("MOVIE_DETAILS_ACTIVITY",  " " + movieID);
-       Observable<MovieDetail> details = repo.getMovieDetails(movieID);
+        Log.d("MOVIE_DETAILS_ACTIVITY", " " + movieID);
+        Observable<MovieDetail> details = repo.getMovieDetails(movieID);
         details.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<MovieDetail>() {
-            @Override
-            public void onCompleted() {
-                Log.d("MOVIE_DETAILS_ACTIVITY",  "COMPLETED " + movieID);
-            }
+                    @Override
+                    public void onCompleted() {
+                        Log.d("MOVIE_DETAILS_ACTIVITY", "COMPLETED " + movieID);
+                    }
 
-            @Override
-            public void onError(Throwable e) {
-                Log.d("MOVIE_DETAILS_ACTIVITY",  "ERROR " + movieID);
-                e.printStackTrace();
-            }
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.d("MOVIE_DETAILS_ACTIVITY", "ERROR " + movieID);
+                        e.printStackTrace();
+                    }
 
-            @Override
-            public void onNext(MovieDetail movieDetail) {
-                Log.d("MOVIE_DETAILS_ACTIVITY", movieDetail.getId()+ " " + movieID + " " + movieDetail.toString());
-                mBinding.movieTitle.setText(movieDetail.getTitle());
-                mBinding.genreValue.setText(movieDetail.getGenresString());
-                mBinding.releaseDateValue.setText(movieDetail.getRelease_date());
-                mBinding.ratingValue.setText(movieDetail.getVote_average().toString());
-                mBinding.runtimeValue.setText(movieDetail.getRuntime().toString()+ " min");
-                mBinding.plot.setText(movieDetail.getOverview());
+                    @Override
+                    public void onNext(MovieDetail movieDetail) {
+                        Log.d("MOVIE_DETAILS_ACTIVITY", movieDetail.getId() + " " + movieID + " " + movieDetail.toString());
+                        mBinding.movieTitle.setText(movieDetail.getTitle());
+                        mBinding.genreValue.setText(movieDetail.getGenresString());
+                        mBinding.releaseDateValue.setText(movieDetail.getRelease_date());
+                        mBinding.ratingValue.setText(movieDetail.getVote_average().toString());
+                        mBinding.runtimeValue.setText(movieDetail.getRuntime().toString() + " min");
+                        mBinding.plot.setText(movieDetail.getOverview());
 //
-                mBinding.picture.setController(getImageController(movieDetail.getPoster_path(), mBinding.picture.getController()));
-                mBinding.picture.setLayoutParams(new CollapsingToolbarLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int) getResources().getDimension(R.dimen.poster_grid2_height)));
+                        mBinding.picture.setController(getImageController(movieDetail.getPoster_path(), mBinding.picture.getController()));
+                        mBinding.picture.setLayoutParams(new CollapsingToolbarLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int) getResources().getDimension(R.dimen.poster_grid2_height)));
 
-                mBinding.poster.setController(getImageController(movieDetail.getPoster_path(), mBinding.poster.getController()));
-            }
-        });
+                        mBinding.poster.setController(getImageController(movieDetail.getPoster_path(), mBinding.poster.getController()));
+                    }
+                });
     }
 
-    private DraweeController getImageController(String imagePath, DraweeController oldController){
+    private DraweeController getImageController(String imagePath, DraweeController oldController) {
         String address = "http://image.tmdb.org/t/p/w" + "300" + imagePath;
         Log.d("FRESCOLOADING", address);
         Uri uri = Uri.parse(address);

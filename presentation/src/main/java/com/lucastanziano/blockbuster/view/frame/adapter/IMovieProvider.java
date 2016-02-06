@@ -1,6 +1,6 @@
 package com.lucastanziano.blockbuster.view.frame.adapter;
 
-import com.lucastanziano.blockbuster.Movie;
+import com.lucastanziano.blockbuster.domain.Movie;
 
 import rx.Observable;
 

@@ -1,4 +1,4 @@
-package lucastanziano.blockbuster.widget;
+package com.lucastanziano.blockbuster.widget;
 
 
 
@@ -9,12 +9,13 @@ import android.view.View;
 import android.view.Window;
 import android.widget.FrameLayout;
 
+import com.lucastanziano.blockbuster.view.util.ColorUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 
-
 import lucastanziano.blockbuster.R;
-import lucastanziano.blockbuster.view.util.ColorUtils;
+
 
 /**
  * A {@link FrameLayout} which responds to nested scrolls to create drag-dismissable layouts.

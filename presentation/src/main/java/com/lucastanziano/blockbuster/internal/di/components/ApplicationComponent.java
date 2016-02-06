@@ -3,7 +3,6 @@ package com.lucastanziano.blockbuster.internal.di.components;
 import android.content.Context;
 
 import com.lucastanziano.blockbuster.internal.di.modules.ApplicationModule;
-import com.lucastanziano.blockbuster.repository.MovieRepository;
 import com.lucastanziano.blockbuster.view.activity.BaseActivity;
 
 import javax.inject.Singleton;

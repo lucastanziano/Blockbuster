@@ -5,7 +5,7 @@ import android.databinding.ObservableList;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.lucastanziano.blockbuster.Movie;
+import com.lucastanziano.blockbuster.domain.Movie;
 import com.lucastanziano.blockbuster.model.MovieItem;
 
 import rx.Observable;
