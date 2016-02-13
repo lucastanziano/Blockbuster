@@ -7,3 +7,9 @@ The goal of this project is to provide a demonstration about how to write an eff
 ##### Libraries used
 RxJava, RxAndroid, Retrofit, Dagger 2, Android Databinder, Facebook Fresco
 
+![Alt text](/art/Screenshot_20160206-172216.png?raw=true " ")
+
+![Alt text](/art/Screenshot_20160206-172239.png?raw=true " ")
+
+
+
