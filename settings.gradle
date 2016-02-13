@@ -1,1 +1,1 @@
-include ':presentation', ':twowayview', ':sidemenu'
+include ':app', ':twowayview', ':sidemenu'
